@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">/*babel translates JSX into something the browser understands. Without babel youll get an error */
+        /*to create a react companent we create a class that extents react component from the above src*/
+        class App extends React.Component{
+            /*render renders our template to whatever element we want i.e div in our case from above also always return only one root element*/
+            /*The embedded html in the return function below is called JSX. Note that there are some limitations e.g using className instead of class*/
+            /*creating initial state of a component. to do this, create an object and initialize its properties as shown below*/
+           state ={
+                name: "aisha",
+                age: 30
+           }
+           handleClick = (e)=>{ /*an event function take e by default no need to pass it when calling the function. Always make your functions arrow functions so you can access states using this.propertyname*/
+               //console.log(e.target)
+               //change a state
+               this.setState({ /*change states this way, by using the setstate function, then pass in an object to the function*/
+                   name: 'Lawal',
+               });
+               console.log(this.state);
+           }
+           handleMouseHover = (e) =>{
+               console.log(e);
+           }
+           handleCopy = (e) =>{
+               console.log("try being original for once!!");
+           }
+            render(){
+                return(
+                    <div className="app-content">
+                        <h1>Hey everyone</h1>
+                        <p>My name is: {this.state.name} and I am {this.state.age}</p>
+                        <button onClick={this.handleClick}>Click me</button>
+                        <button onMouseOver={this.handleMouseHover}>Hover Me</button>
+                        <p onCopy={this.handleCopy}>What we think, we become</p>
+                    </div>
+                )
+            }
+
+        }
+        /*to render the components created in the return function to the div(with id =app)*, the below means render the content in class App to the div with id=app*/
+        ReactDOM.render(<App />, document.getElementById('app'))
+    </script>
+</body>
+</html>
+
+
+

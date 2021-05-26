@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/babel">
+
+    class App extends React.Component{
+        state ={
+            name: 'Aisha',
+            age: 30
+
+        }
+        handleChange = (e)=>{
+            /*e.target is the event object i.e the element that calls the function*/
+            this.setState({
+                name: e.target.value //gets value of whats in the input field
+            })
+        }
+        handleSubmit = (e) =>{
+            //always remeber to prevent default when you submit a form so the page doesnt load
+            e.preventDefault();
+            console.log("My name is ", this.state.name);
+        }
+        render(){
+            return(
+                <div className="app-content">
+                    <h1>My name is {this.state.name}</h1>
+                    <form action="" onSubmit={this.handleSubmit}>
+                        <input type="text" onChange={this.handleChange}/>
+                        <button>Submit</button>
+                    </form>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<App />, document.getElementById('app'))
+</script>
+</body>
+</html>
