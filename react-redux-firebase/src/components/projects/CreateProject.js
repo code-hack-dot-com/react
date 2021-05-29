@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { createProject } from '../../store/actions/projectActions'
+import {connect} from "react-redux";
+
 
 class CreateProject extends Component {
     state ={
@@ -12,7 +15,8 @@ class CreateProject extends Component {
     }
     handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
+        this.props.createProject(this.state);
     }
     render() {
         return (
@@ -35,5 +39,14 @@ class CreateProject extends Component {
         );
     }
 }
+//lets send data to the store/action creator so we can update the store!
+const mapDispatchToProps =(dispatch)=>{
+    return{
+        //so from our component we say props.createproject and pass in the project details we wanna create,
+        //it dispatches and calls the 'createproject' action creator which was imported at the top and sending the project to it
+        //then db details happens in the action creator, before it continues with dispatch
+        createProject:(project)=>dispatch(createProject(project))
+    }
+}
 
-export default CreateProject;
+export default connect(null,mapDispatchToProps)(CreateProject);

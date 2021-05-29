@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore,applyMiddleware} from "redux";
+import mainReducer from "./store/reducers/mainReducer";
+import {Provider} from "react-redux";
+import thunk from "redux-thunk";
 
+//we import think and applemiddleware so we can use it as middleware in the action creators
+//thunk middlware enhances the store with extra functionality. it allows us to return a function in the action creators so we can interact with db
+const store = createStore(mainReducer,applyMiddleware(thunk));
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
