@@ -9,7 +9,7 @@ import {firestoreReducer} from "redux-firestore";
 const mainReducer = combineReducers({
     auth: authReducer,
     project: projectReducer,
-    //firebase: firebaseReducer,
-    firestore: firestoreReducer // this helps us sync our firstore data with our state
+    firebase: firebaseReducer,//firebase reducer helps us sync our auth status and other firebase info in firebase with our redux app state
+    firestore: firestoreReducer // this helps us sync our firestore data with our state
 });
 export default mainReducer

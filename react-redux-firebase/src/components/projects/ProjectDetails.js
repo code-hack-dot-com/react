@@ -33,7 +33,7 @@ const ProjectDetails = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
-    const projects = state.firestore.data.projects;
+    const projects = state.firestore.data.projects;//this is available cos of the syncing of firestore reducer done in the mainreducer file and we added it to HOC below
     const project = projects? projects[id]: null;
     return {
         project: project

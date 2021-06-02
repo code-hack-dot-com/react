@@ -7,8 +7,9 @@ const ProjectLists =(props)=>{
     const {projects} = props
     const projectList = projects.length ?(projects.map(project=>{
         return(
-            <Link to={'/project/'+ project.id}>
-                <ProjectSummary project={project} key={project.id}/>
+            //note that the key value should always be associated with the parent element: in this case Link component not ProjectSummaey
+            <Link to={'/project/'+ project.id} key={project.id}>
+                <ProjectSummary project={project}/>
             </Link>
         )
     })) : (
