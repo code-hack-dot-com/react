@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { createProject } from '../../store/actions/projectActions'
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 
 class CreateProject extends Component {
@@ -17,10 +18,15 @@ class CreateProject extends Component {
         e.preventDefault();
         // console.log(this.state);
         this.props.createProject(this.state);
+        //lets redirect after submit
+        this.props.history.push('/');
     }
     render() {
+        const {auth} =this.props;
+
         return (
-            <div className="container">
+            auth.uid?
+                 ( <div className="container">
                 <form onSubmit={this.handleSubmit} className="white">
                     <h5 className="grey-text text-darken-3">Create Project</h5>
                     <div className="input-field">
@@ -35,7 +41,7 @@ class CreateProject extends Component {
                         <button className="btn pink lighten-1 z-depth-0">Create</button>
                     </div>
                 </form>
-            </div>
+            </div>): <Redirect to='/signin'/>
         );
     }
 }
@@ -48,5 +54,11 @@ const mapDispatchToProps =(dispatch)=>{
         createProject:(project)=>dispatch(createProject(project))
     }
 }
+//lets create mapStateToProps function so we can use it to retrieve if the user is logged in and then protect the visibility of some data
+const mapStateToProps= (state)=>{
+    return{
+        auth: state.firebase.auth
+    }
+}
 
-export default connect(null,mapDispatchToProps)(CreateProject);
+export default connect(mapStateToProps,mapDispatchToProps)(CreateProject);

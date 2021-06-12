@@ -5,9 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore,applyMiddleware, compose} from "redux";
 import mainReducer from "./store/reducers/mainReducer";
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import thunk from "redux-thunk";
-import {ReactReduxFirebaseProvider, getFirebase, reactReduxFirebase} from "react-redux-firebase";
+import {ReactReduxFirebaseProvider, getFirebase, reactReduxFirebase, isLoaded} from "react-redux-firebase";
 import fbConfig from "./config/fbConfig";
 import {createFirestoreInstance, getFirestore, reduxFirestore} from "redux-firestore";
 import firebase from "firebase/app";
@@ -20,20 +20,33 @@ const store = createStore(mainReducer,
         applyMiddleware(thunk.withExtraArgument({getFirebase,getFirestore})),
         reduxFirestore(firebase,fbConfig),
         //reactReduxFirebase(fbConfig)
-
-
         )
 
     )
-const rrfProps = {
+
+/*const rrfProps = {
     firebase,
     config: fbConfig,
     dispatch: store.dispatch,
-    createFirestoreInstance
- }
-ReactDOM.render(
+    createFirestoreInstance,
+    useFirestoreForProfile:true, //this automatically links firebase users to thier coresponding documents in firestore using user id
+    userProfile: 'users',//we have to state the collection name here for the above ti be able to detect
 
-  <Provider store={store}>
+
+}*/
+const rrfConfig = {
+    userProfile: 'users',
+    useFirestoreForProfile: true
+}
+const rrfProps = {
+    firebase,
+    config: rrfConfig, fbConfig,
+    dispatch: store.dispatch,
+    createFirestoreInstance,
+}
+
+ReactDOM.render(
+    <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
             <App />
       </ReactReduxFirebaseProvider>
